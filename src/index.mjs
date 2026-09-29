@@ -1,4 +1,4 @@
-// Purpose: Join public-data rows with deterministic blocking and reviewed semantic resolution.
+// Objectif : implémenter la frontière de décision métier propre au dépôt.
 import { readFile } from "node:fs/promises";
 export function normalizeName(value) {
   return String(value || "")

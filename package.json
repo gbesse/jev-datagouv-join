@@ -1,7 +1,7 @@
 {
   "name": "@gbesse/jev-datagouv-join",
-  "version": "0.1.0",
-  "description": "Resolve ambiguous joins between French public datasets with auditable candidates.",
+  "version": "0.1.1",
+  "description": "Résout les jointures ambiguës entre jeux de données publics français avec des candidats auditables.",
   "type": "module",
   "license": "MIT",
   "engines": {

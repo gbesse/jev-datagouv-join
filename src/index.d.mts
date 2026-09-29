@@ -1,4 +1,4 @@
-// Purpose: Describe candidate generation and public-data join decisions.
+// Objectif : décrire les types de l’API métier publique.
 import type { JevProvider } from "./jev.mjs";
 export function normalizeName(value: unknown): string;
 export function candidates(

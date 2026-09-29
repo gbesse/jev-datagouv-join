@@ -1,4 +1,4 @@
-// Purpose: Demonstrate deterministic and semantic public-data joins offline.
+// Objectif : démontrer la frontière de décision sans appel réseau.
 import { joinRows } from "../src/index.mjs";
 import { createFakeProvider } from "../src/jev.mjs";
 const left = [
