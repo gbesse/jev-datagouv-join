@@ -2,7 +2,7 @@
 
 **Résout les jointures ambiguës entre jeux de données publics français avec des candidats auditables.**
 
-[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.1 · Documentation française
+[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
 
 Le moteur bloque d’abord les lignes à l’aide des identifiants déterministes et des noms normalisés. Jev n’examine que les paires encore ambiguës et renvoie les rapprochements, rejets et cas à vérifier avec leur provenance.
 
@@ -16,6 +16,50 @@ npm run demo
 ```
 
 La démonstration utilise uniquement des données et probabilités synthétiques. Elle n’effectue aucun appel réseau et ne constitue pas une mesure de qualité de Jev.
+
+## Exemple exécutable
+
+Cet exemple rapproche deux listes d’organismes par SIREN puis par similarité contrôlée. Il utilise un fournisseur Jev simulé : aucune clé API ni connexion réseau n’est nécessaire. L’assertion intégrée fait échouer la commande si le comportement attendu change.
+
+Le code complet de [`examples/demo.mjs`](examples/demo.mjs) est directement copiable :
+
+```js
+// Objectif : démontrer la frontière de décision sans appel réseau.
+import assert from "node:assert/strict";
+import { joinRows } from "../src/index.mjs";
+import { createFakeProvider } from "../src/jev.mjs";
+const left = [
+  { name: "Mairie de Saint Étienne", siren: "111" },
+  { name: "Ass. Les Amis du Parc" },
+];
+const right = [
+  { name: "Commune de Saint-Etienne", siren: "111" },
+  { name: "Association Les Amis du Parc", city: "Lyon" },
+];
+const fake = createFakeProvider(() => ({
+  model: "jev-1.13.0",
+  answers: {
+    match: {
+      type: "choice",
+      choice: "candidate_0",
+      probabilities: { candidate_0: 0.91, none: 0.09 },
+      confidence: 0.91,
+    },
+  },
+  usage: { input_tokens: 90, output_tokens: 0 },
+}));
+const resultat = await joinRows(left, right, fake);
+assert.equal(resultat[1].decision, "same_entity");
+console.log(JSON.stringify(resultat, null, 2));
+```
+
+Lancez-le avec :
+
+```sh
+npm run demo
+```
+
+Résultat à repérer : `decision: same_entity`.
 
 ## Utilisation de la bibliothèque
 

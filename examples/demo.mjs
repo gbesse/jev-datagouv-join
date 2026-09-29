@@ -1,4 +1,5 @@
 // Objectif : démontrer la frontière de décision sans appel réseau.
+import assert from "node:assert/strict";
 import { joinRows } from "../src/index.mjs";
 import { createFakeProvider } from "../src/jev.mjs";
 const left = [
@@ -21,4 +22,6 @@ const fake = createFakeProvider(() => ({
   },
   usage: { input_tokens: 90, output_tokens: 0 },
 }));
-console.log(await joinRows(left, right, fake));
+const resultat = await joinRows(left, right, fake);
+assert.equal(resultat[1].decision, "same_entity");
+console.log(JSON.stringify(resultat, null, 2));
