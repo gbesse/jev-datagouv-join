@@ -2,7 +2,7 @@
 
 **Résout les jointures ambiguës entre jeux de données publics français avec des candidats auditables.**
 
-[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.2 · Documentation française
+[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.3 · Documentation française
 
 Le moteur bloque d’abord les lignes à l’aide des identifiants déterministes et des noms normalisés. Jev n’examine que les paires encore ambiguës et renvoie les rapprochements, rejets et cas à vérifier avec leur provenance.
 
@@ -56,10 +56,20 @@ console.log(JSON.stringify(resultat, null, 2));
 Lancez-le avec :
 
 ```sh
-npm run demo
+npm run demo:principal
 ```
 
 Résultat à repérer : `decision: same_entity`.
+
+### Cas limite à tester
+
+Un SIREN identique impose la jointure avant toute comparaison sémantique. Le code se trouve dans [`examples/cas-limite.mjs`](examples/cas-limite.mjs).
+
+```sh
+npm run demo:limite
+```
+
+Résultat à repérer : `decision: same_entity · deterministic: true`. La commande `npm run demo` exécute les deux exemples.
 
 ## Utilisation de la bibliothèque
 
