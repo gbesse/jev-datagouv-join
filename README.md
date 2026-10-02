@@ -2,7 +2,7 @@
 
 **Résout les jointures ambiguës entre jeux de données publics français avec des candidats auditables.**
 
-[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.3 · Documentation française
+[![Tests](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml/badge.svg)](https://github.com/gbesse/jev-datagouv-join/actions/workflows/test.yml) [MIT](LICENSE) · Node.js 22+ · v0.1.4 · Documentation française
 
 Le moteur bloque d’abord les lignes à l’aide des identifiants déterministes et des noms normalisés. Jev n’examine que les paires encore ambiguës et renvoie les rapprochements, rejets et cas à vérifier avec leur provenance.
 
@@ -99,6 +99,12 @@ TYPESAFE_API_KEY=... node scripts/live-smoke.mjs
 ```
 
 N’envoyez jamais de secret, de donnée personnelle ni de dossier sensible non expurgé. Évaluez le comportement sur un jeu représentatif de cas français avant tout usage opérationnel.
+
+## Parcours comparatif
+
+`npm run demo:parcours` produit un rapport JSON partageable pour **jev-datagouv-join** : le scénario principal et la frontière déterministe. Chaque scénario garde sa sortie propre et échoue si son assertion ne passe plus. Les données et probabilités sont synthétiques ; aucun appel Jev n’est effectué.
+
+Cette vue permet de comparer rapidement les chemins de décision et de choisir quel exemple adapter à vos propres données sourcées.
 
 ## Validation
 
